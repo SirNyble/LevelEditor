@@ -9,7 +9,6 @@ INCLUDEPATH += .
 
 # Input
 QT += widgets
-DESTDIR = bin/
 OBJECTS_DIR = bin/
 MOC_DIR = bin/
 UI_DIR = src/ui/
