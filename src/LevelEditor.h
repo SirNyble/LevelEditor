@@ -1,8 +1,8 @@
 //
 // Created by rhys on 05/01/16.
 //
-#ifndef QTTEST_LEVELEDITOR_H
-#define QTTEST_LEVELEDITOR_H
+#ifndef LEVELEDITOR_H
+#define LEVELEDITOR_H
 #include <QWidget>
 #include <string>
 #include <QGraphicsScene>
@@ -23,4 +23,4 @@ public:
 private:
     Ui::LevelEditor *m_ui;
 };
-#endif //QTTEST_LEVELEDITOR_H
+#endif //LEVELEDITOR_H
