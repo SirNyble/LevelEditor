@@ -12,6 +12,7 @@ QT += widgets
 OBJECTS_DIR = bin/
 MOC_DIR = bin/
 UI_DIR = src/ui/
+RESOURCES += LevelEditor.qrc
 HEADERS += src/LevelEditor.h
 FORMS += forms/LevelEditor.ui
 SOURCES += src/LevelEditor.cpp src/main.cpp

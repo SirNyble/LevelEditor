@@ -2,3 +2,4 @@ bin/
 src/ui/
 moc*
 Makefile
+qrc_levelEditor.cpp
