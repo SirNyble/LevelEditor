@@ -3,7 +3,7 @@
 //
 #include "LevelEditor.h"
 
-LevelEditor::LevelEditor(QString title, int width, int height, QWidget *parent)
+LevelEditor::LevelEditor(QString title, QWidget *parent)
 : QMainWindow(parent),
   m_ui(new Ui::LevelEditor)
 {
@@ -12,27 +12,27 @@ LevelEditor::LevelEditor(QString title, int width, int height, QWidget *parent)
     setWindowTitle(title);
 
     setupMenu();
-    //TODO: Make sure this is moved to the LOAD function
-    QImage spriteSheet(":/images/MySpriteSheet");
-    QImage tile00 = spriteSheet.copy(1, 1, 16, 16);
-    tile00 = tile00.scaled(32, 32);
-
-    QImage tile01 = spriteSheet.copy(1, 16, 16, 16);
-    tile01= tile01.scaled(32, 32);
-    //m_stampBar = new QToolBar();
-    //m_stampBar->setScaledContents(true);
-    QToolButton * testButton = new QToolButton();
-    testButton->setIcon(QIcon(QPixmap::fromImage(tile00)));
-    testButton->setIconSize(QSize(32, 32));
-    m_ui->m_stampLayout->addWidget(testButton);
-
-    QToolButton * testButton1 = new QToolButton();
-    testButton1->setIcon(QIcon(QPixmap::fromImage(tile01)));
-    testButton1->setIconSize(QSize(32, 32));
-    m_ui->m_stampLayout->addWidget(testButton1);
 }
 
 void LevelEditor::setupMenu()
 {
+  m_fileMenu = new QMenu("File");
+  m_fileMenu->addAction( "New...", this, SLOT(newMap()) );
+//  m_newMap = new QAction("New ...", m_fileMenu);
+//  m_fileMenu->addAction(m_newMap);
+  m_ui->m_levelEditorMenubar->addMenu(m_fileMenu);
+}
 
+void LevelEditor::newMap()
+{
+  NewProjectDialog * dlg = new NewProjectDialog(this);
+  if(dlg->exec() == QDialog::Accepted)
+  {
+    m_tileSize = dlg->m_ui->m_tileSizeEdit->text().toInt();
+    m_spriteSheetFiles = dlg->m_ui->m_spriteSheetEdit->text();
+    qDebug() << "Creating new Grid and spritesheet stamps";
+    qDebug() << "Tile Size: " << m_tileSize;
+    qDebug() << "SpriteSheets: " << m_spriteSheetFiles;
+  }
+  //while(dlg.exectu)
 }

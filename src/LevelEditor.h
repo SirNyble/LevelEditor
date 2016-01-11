@@ -3,6 +3,8 @@
 //
 #ifndef LEVELEDITOR_H
 #define LEVELEDITOR_H
+
+//QT Specific
 #include <QWidget>
 #include <string>
 #include <QGraphicsScene>
@@ -10,8 +12,14 @@
 #include <QGridLayout>
 #include <QToolBar>
 #include <QToolButton>
+#include <QDebug>
+#include <QFileDialog>
+#include <QDialog>
 
+//Forms
 #include "ui/ui_LevelEditor.h"
+
+#include "NewProjectDialog.h"
 
 namespace Ui
 {
@@ -22,10 +30,19 @@ class LevelEditor : public QMainWindow
 {
     Q_OBJECT
 public:
-    LevelEditor(QString title, int width, int height, QWidget *parent =0);
+    LevelEditor(QString title, QWidget *parent =0);
     void setupMenu();
     QToolBar * m_stampBar;
+
+public slots:
+    void newMap();
+
 private:
     Ui::LevelEditor *m_ui;
+    QMenu * m_fileMenu;
+    QAction *m_newMap;
+
+    int m_tileSize;
+    QString m_spriteSheetFiles;
 };
 #endif //LEVELEDITOR_H
