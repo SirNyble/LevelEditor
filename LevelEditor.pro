@@ -13,6 +13,12 @@ OBJECTS_DIR = bin/
 MOC_DIR = bin/
 UI_DIR = src/ui/
 RESOURCES += LevelEditor.qrc
-HEADERS += src/LevelEditor.h src/NewProjectDialog.h
-FORMS += forms/LevelEditor.ui forms/NewProjectDialog.ui
-SOURCES += src/LevelEditor.cpp src/main.cpp src/NewProjectDialog.cpp
+HEADERS += src/LevelEditor.h\
+           src/NewProjectDialog.h\
+           src/TileButton.h
+FORMS += forms/LevelEditor.ui\
+         forms/NewProjectDialog.ui
+SOURCES += src/LevelEditor.cpp\
+          src/main.cpp\
+          src/NewProjectDialog.cpp\
+          src/TileButton.cpp
