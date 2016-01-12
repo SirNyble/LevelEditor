@@ -15,11 +15,13 @@
 #include <QDebug>
 #include <QFileDialog>
 #include <QDialog>
+#include <vector>
 
 //Forms
 #include "ui/ui_LevelEditor.h"
 
 #include "NewProjectDialog.h"
+#include "TileButton.h"
 
 namespace Ui
 {
@@ -38,10 +40,12 @@ public slots:
     void newMap();
 
 private:
+    void createTileButtons();
     Ui::LevelEditor *m_ui;
     QMenu * m_fileMenu;
     QAction *m_newMap;
 
+    std::vector<TileButton *> m_tileVector;
     int m_tileSize;
     QString m_spriteSheetFiles;
 };
