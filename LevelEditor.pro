@@ -4,6 +4,7 @@
 
 TEMPLATE = app
 TARGET = bin/LevelEditor
+CONFIG += c++11
 DEPENDPATH += .
 INCLUDEPATH += .\
                src/
