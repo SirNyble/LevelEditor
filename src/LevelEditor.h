@@ -41,12 +41,21 @@ public slots:
 
 private:
     void createTileButtons();
+    void createEmptyGrid();
     Ui::LevelEditor *m_ui;
     QMenu * m_fileMenu;
     QAction *m_newMap;
 
+    //Sprite Tiles
     std::vector<TileButton *> m_tileVector;
     int m_tileSize;
+    int m_gridSize;
     QString m_spriteSheetFiles;
+
+    //Grid content
+    QGraphicsScene * m_scene;
+    int m_gridRowSize;
+    int m_gridColSize;
+
 };
 #endif //LEVELEDITOR_H

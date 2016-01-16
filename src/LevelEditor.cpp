@@ -12,16 +12,10 @@ LevelEditor::LevelEditor(QString title, QWidget *parent)
     setWindowTitle(title);
 
     setupMenu();
-    QGraphicsScene * scene = new QGraphicsScene();
-
-    // Add the vertical lines first, paint them red
-    for (int x=0; x<=500; x+=50)
-        scene->addLine(x,0,x,500, QPen(Qt::red));
-
-// Now add the horizontal lines, paint them green
-    for (int y=0; y<=500; y+=50)
-        scene->addLine(0,y,500,y, QPen(Qt::green));
-    m_ui->m_tileGraphicsView->setScene(scene);
+    m_scene = new QGraphicsScene();
+    m_ui->m_tileGraphicsView->setDragMode(QGraphicsView::ScrollHandDrag);
+    m_ui->m_tileGraphicsView->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
+    m_gridSize = 50;
 }
 
 void LevelEditor::setupMenu()
@@ -72,17 +66,42 @@ void LevelEditor::createTileButtons()
   }
 }
 
+void LevelEditor::createEmptyGrid()
+{
+  //m_scene->clear();
+  int gridWidth = m_gridSize * m_gridColSize;
+  int gridHeight = m_gridSize * m_gridRowSize;
+
+  //m_tileSize
+  // Add the vertical lines first, paint them red
+  for (int x=0; x<=gridWidth; x+=m_gridSize)
+      m_scene->addLine(0,x,gridHeight, x, QPen(Qt::black));
+  // Now add the horizontal lines, paint them green
+  for (int y=0; y<=gridHeight; y+=m_gridSize)
+      m_scene->addLine(y, 0,y,gridWidth, QPen(Qt::black));
+
+  m_ui->m_tileGraphicsView->setScene(m_scene);
+  qDebug() << "There are" << m_scene->items().size();
+
+}
+
 void LevelEditor::newMap()
 {
-  NewProjectDialog * dlg = new NewProjectDialog(this);
-  if(dlg->exec() == QDialog::Accepted)
+  NewProjectDialog dlg(this);
+  if(dlg.exec() == QDialog::Accepted)
   {
-    m_tileSize = dlg->m_ui->m_tileSizeEdit->text().toInt();
-    m_spriteSheetFiles = dlg->m_ui->m_spriteSheetEdit->text();
+    //Create Tiles
+    m_tileSize = dlg.m_ui->m_tileSizeEdit->text().toInt();
+    m_spriteSheetFiles = dlg.m_ui->m_spriteSheetEdit->text();
     qDebug() << "Creating new Grid and spritesheet stamps";
     qDebug() << "Tile Size: " << m_tileSize;
     qDebug() << "SpriteSheets: " << m_spriteSheetFiles;
 
     createTileButtons();
+
+    //Create NxM Grid
+    m_gridRowSize = dlg.m_ui->m_gridRowSizeEdit->text().toInt();
+    m_gridColSize = dlg.m_ui->m_gridColSizeEdit->text().toInt();
+    createEmptyGrid();
   }
 }

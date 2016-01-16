@@ -105,7 +105,7 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
-        <widget class="QGraphicsView" name="m_tileGraphicsView"/>
+        <widget class="GridGraphicsView" name="m_tileGraphicsView"/>
        </item>
       </layout>
      </item>
@@ -124,6 +124,13 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>GridGraphicsView</class>
+   <extends>QGraphicsView</extends>
+   <header>GridGraphicsView.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

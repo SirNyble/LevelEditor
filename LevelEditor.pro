@@ -5,7 +5,8 @@
 TEMPLATE = app
 TARGET = bin/LevelEditor
 DEPENDPATH += .
-INCLUDEPATH += .
+INCLUDEPATH += .\
+               src/
 
 # Input
 QT += widgets
@@ -15,10 +16,12 @@ UI_DIR = src/ui/
 RESOURCES += LevelEditor.qrc
 HEADERS += src/LevelEditor.h\
            src/NewProjectDialog.h\
-           src/TileButton.h
+           src/TileButton.h\
+           src/GridGraphicsView.h
 FORMS += forms/LevelEditor.ui\
          forms/NewProjectDialog.ui
 SOURCES += src/LevelEditor.cpp\
           src/main.cpp\
           src/NewProjectDialog.cpp\
-          src/TileButton.cpp
+          src/TileButton.cpp\
+          src/GridGraphicsView.cpp

@@ -10,7 +10,7 @@ int main(int argc, char **argv)
 {
     cout << "Hello, World!" << endl;
     QApplication app (argc, argv);
-
+    qDebug() << QT_VERSION_STR;
     LevelEditor editor("Level Editor");
     editor.show();
 
