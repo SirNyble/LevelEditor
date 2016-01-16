@@ -16,6 +16,13 @@ LevelEditor::LevelEditor(QString title, QWidget *parent)
     m_ui->m_tileGraphicsView->setDragMode(QGraphicsView::ScrollHandDrag);
     m_ui->m_tileGraphicsView->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
     m_gridSize = 50;
+
+    m_curTile = new TileButton();
+}
+void LevelEditor::setSelectedTile()
+{
+  qDebug() << "SLOT WORKS";
+  m_curTile = dynamic_cast<TileButton*>(sender());
 }
 
 void LevelEditor::setupMenu()
@@ -53,15 +60,15 @@ void LevelEditor::createTileButtons()
       curTileButton->m_tile = tile;
       curTileButton->m_row = i;
       curTileButton->m_col = j;
-      curTileButton->m_toolButton = new QToolButton();
-      curTileButton->m_toolButton->setIcon(QIcon(QPixmap::fromImage(curTileButton->m_tile)));
-      curTileButton->m_toolButton->setIconSize(QSize(32, 32));
-
+      //curTileButton->m_toolButton = new QToolButton();
+      curTileButton->setIcon(QIcon(QPixmap::fromImage(curTileButton->m_tile)));
+      curTileButton->setIconSize(QSize(32, 32));
+      //connect(curTileButton->m_toolButton, SIGNAL(clicked()), this, SLOT(setSelectedTile()));
       //Push this TileButton into the vector for future use
       m_tileVector.push_back(curTileButton);
 
       //Add it to the layout widget
-      m_ui->m_stampLayout->addWidget(curTileButton->m_toolButton, curTileButton->m_col, curTileButton->m_row);
+      m_ui->m_stampLayout->addWidget(curTileButton, curTileButton->m_col, curTileButton->m_row);
     }
   }
 }

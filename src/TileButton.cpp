@@ -5,3 +5,8 @@ TileButton::TileButton()
 {
 
 }
+
+void TileButton::mousePressEvent(QMouseEvent * e)
+{
+  qDebug() << "WOOT";
+}

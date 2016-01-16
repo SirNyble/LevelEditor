@@ -12,7 +12,9 @@ public:
     QImage m_tile;
     int m_row;
     int m_col;
-    QToolButton * m_toolButton;
+    //QToolButton * m_toolButton;
+
+    virtual void mousePressEvent(QMouseEvent * e);
 };
 
 #endif //TILE_BUTTON_H

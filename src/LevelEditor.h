@@ -38,7 +38,7 @@ public:
 
 public slots:
     void newMap();
-
+    void setSelectedTile();
 private:
     void createTileButtons();
     void createEmptyGrid();
@@ -48,6 +48,7 @@ private:
 
     //Sprite Tiles
     std::vector<TileButton *> m_tileVector;
+    TileButton* m_curTile;
     int m_tileSize;
     int m_gridSize;
     QString m_spriteSheetFiles;
