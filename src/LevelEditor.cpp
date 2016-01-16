@@ -12,17 +12,24 @@ LevelEditor::LevelEditor(QString title, QWidget *parent)
     setWindowTitle(title);
 
     setupMenu();
-    m_scene = new QGraphicsScene();
-    m_ui->m_tileGraphicsView->setDragMode(QGraphicsView::ScrollHandDrag);
-    m_ui->m_tileGraphicsView->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
-    m_gridSize = 50;
 
-    m_curTile = new TileButton();
+    m_curTile = nullptr;
 }
 void LevelEditor::setSelectedTile()
 {
+  if(m_curTile != nullptr)
+  {
+    m_curTile->setChecked(false);
+  }
   qDebug() << "SLOT WORKS";
-  m_curTile = dynamic_cast<TileButton*>(sender());
+  m_curTile = dynamic_cast<QToolButton*>(sender());
+  m_curTile->setCheckable(true);
+  m_curTile->setChecked(true);
+
+  QPixmap img = m_curTile->icon().pixmap(50, 50);
+  img = img.scaled(50, 50);
+  m_scene->addPixmap( img );
+
 }
 
 void LevelEditor::setupMenu()
@@ -56,19 +63,17 @@ void LevelEditor::createTileButtons()
       tile = tile.scaled(32, 32);
 
       //Create TileButton and set it up.
-      TileButton* curTileButton = new TileButton();
-      curTileButton->m_tile = tile;
-      curTileButton->m_row = i;
-      curTileButton->m_col = j;
+      QToolButton* curTileButton = new QToolButton();
+      //curTileButton->m_tile = tile;
       //curTileButton->m_toolButton = new QToolButton();
-      curTileButton->setIcon(QIcon(QPixmap::fromImage(curTileButton->m_tile)));
+      curTileButton->setIcon(QIcon(QPixmap::fromImage(tile)));
       curTileButton->setIconSize(QSize(32, 32));
-      //connect(curTileButton->m_toolButton, SIGNAL(clicked()), this, SLOT(setSelectedTile()));
+      connect(curTileButton, SIGNAL(clicked()), this, SLOT(setSelectedTile()));
       //Push this TileButton into the vector for future use
       m_tileVector.push_back(curTileButton);
 
       //Add it to the layout widget
-      m_ui->m_stampLayout->addWidget(curTileButton, curTileButton->m_col, curTileButton->m_row);
+      m_ui->m_stampLayout->addWidget(curTileButton, j, i);
     }
   }
 }
@@ -76,19 +81,11 @@ void LevelEditor::createTileButtons()
 void LevelEditor::createEmptyGrid()
 {
   //m_scene->clear();
-  int gridWidth = m_gridSize * m_gridColSize;
-  int gridHeight = m_gridSize * m_gridRowSize;
 
-  //m_tileSize
-  // Add the vertical lines first, paint them red
-  for (int x=0; x<=gridWidth; x+=m_gridSize)
-      m_scene->addLine(0,x,gridHeight, x, QPen(Qt::black));
-  // Now add the horizontal lines, paint them green
-  for (int y=0; y<=gridHeight; y+=m_gridSize)
-      m_scene->addLine(y, 0,y,gridWidth, QPen(Qt::black));
+  //TODO: make grid size a parameter!!
+  m_ui->m_tileGraphicsView->createEmptyGrid(m_gridColSize, m_gridRowSize, 50);
 
-  m_ui->m_tileGraphicsView->setScene(m_scene);
-  qDebug() << "There are" << m_scene->items().size();
+  //m_tileSiz
 
 }
 

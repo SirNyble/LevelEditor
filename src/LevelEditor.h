@@ -21,7 +21,7 @@
 #include "ui/ui_LevelEditor.h"
 
 #include "NewProjectDialog.h"
-#include "TileButton.h"
+#include "Tile.h"
 
 namespace Ui
 {
@@ -47,8 +47,8 @@ private:
     QAction *m_newMap;
 
     //Sprite Tiles
-    std::vector<TileButton *> m_tileVector;
-    TileButton* m_curTile;
+    std::vector<QToolButton *> m_tileVector;
+    QToolButton* m_curTile;
     int m_tileSize;
     int m_gridSize;
     QString m_spriteSheetFiles;
